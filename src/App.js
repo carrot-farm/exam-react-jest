@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import ListContainer from "./ListContainer";
+
+import { useDispatch } from "react-redux";
+
+import { setTasks } from "./actions";
+
+import tasks from "./fixtures/tasks";
 
 function App() {
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    console.log("> click");
+    fetch("http://13.124.125.78:8080/test")
+      .then((res) => res.json())
+      .then(console.log);
+  };
+
+  useEffect(() => {
+    dispatch(setTasks(tasks));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>To - Do</h1>
+      <button onClick={handleClick}>click</button>
+      <ListContainer />
     </div>
   );
 }
