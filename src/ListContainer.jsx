@@ -1,14 +1,22 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import List from './List';
 
+import { deleteTask } from './actions'
+
 function ListCotnainer() {
-  const { tasks } = useSelector((state) => ({
-    tasks: state.tasks
-  }))
+  const dispatch = useDispatch();
+
+  const { tasks } = useSelector((state) => {
+    return ({tasks: state.tasks})
+  });
+
+  function handleClick(id) {
+    dispatch(deleteTask(id));
+  }
 
   return (
-    <List tasks={tasks} />
+    <List tasks={tasks} onClick={handleClick} />
   );
 }
 
